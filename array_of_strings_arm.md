@@ -114,27 +114,35 @@ bf0a             movs       r0, #0x0
 ```
 
 Move 0 into ```r0``` and update the status register:
+
 ```bf0a             movs       r0, #0x0```
 
 Add 0x18 to whatever is at the top of the stack and store in ```r1``` :
+
 ```0000bf0c         add        r1, sp, #0x18```
 
 Load the first element of our array from the stack into ```r2``` :
+
 ```0000bf0e         ldr        r2, [sp, #0x30 + var_2C]```
 
 Perform a ```lsl``` on that address in ```r2``` and store the result in ```r2``` : 
+
 0000bf10         lsls       r2, r2, #0x2
 
 Add ```r2``` and ```r1``` together and store the result in ```r1```:
+
 ```0000bf12         add        r1, r2```
 
 Load value from the address in ```r1```` into ```r1``` i.e. ```(var = array[1])``` : 
+
 ```0000bf14         ldr        r1, [r1]```
 
 Compare that value against 0:
+
 ```0000bf16         cmp        r1, r0```
 
 Then branch if equal: 
+
 ```0000bf18         beq        0xbf3c```
 
 
