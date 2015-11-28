@@ -58,6 +58,7 @@ We load are first pointer ```[sp, #0xc + var_4]``` (address) into ```r3``` . The
 ```
 root->next = malloc(sizeof(struct node));
 ```
+Next the address to the first heap structure is loaded into ```r0```, and then the address pointing to the second heap structure is again loaded into ```r0```.  Then we store an integer (6) in the second heap structure. 
 
 ```
 0000bef8         ldr        r3, [sp, #0xc + var_4]
