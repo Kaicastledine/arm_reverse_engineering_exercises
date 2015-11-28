@@ -5,5 +5,5 @@ These exercises are meant to help identify and understand different patterns in 
 
 ## ARM 
 
-- Array of Strings
-- Single Linked List 
+- [Array of Strings](https://github.com/rotlogix/Exercises/blob/master/arm/array_of_strings_arm.md) 
+- [Single Linked List](https://github.com/rotlogix/Exercises/blob/master/arm/single_linked_list_01_arm.md) 
