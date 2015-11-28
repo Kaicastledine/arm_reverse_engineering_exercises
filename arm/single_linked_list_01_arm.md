@@ -52,3 +52,17 @@ Another call to ```malloc()``` is made:
 0000beee         mov        r0, r1
 0000bef0         blx        imp___symbolstub1__malloc
 ```
+
+We load are first pointer ```[sp, #0xc + var_4]``` (address) into ```r3``` . Then we are going to store our second pointer returned from ```malloc()``` in ```r0``` into the first heap structure at an index ```r0, [r3, #0x4]```. This breaks down into the following source from connects are linked list.
+
+```
+root->next = malloc(sizeof(struct node));
+```
+
+```
+0000bef8         ldr        r3, [sp, #0xc + var_4]
+0000befa         str        r0, [r3, #0x4]
+0000befc         ldr        r0, [sp, #0xc + var_4]
+0000befe         ldr        r0, [r0, #0x4]
+0000bf00         str        r2, [r0]
+```
