@@ -161,3 +161,32 @@ var_2C = 0  - (int i = 0;)
 i++
 (i + sp + 0x18) = array[i]
 ```
+
+The final block is taking each name from its given index into the array and printing it.
+
+```
+0bf1a            movw       r0, #0xae                                           ; "[*] %s\\n", :lower16:(0xbfd4 - 0xbf26)
+0000bf1e         movt       r0, #0x0                                            ; "[*] %s\\n", :upper16:(0xbfd4 - 0xbf26)
+0000bf22         add        r0, pc                                              ; "[*] %s\\n", argument "format" for method 
+0000bf24         add        r1, sp, #0x18
+0000bf26         ldr        r2, [sp, #0x30 + var_2C]
+0000bf28         lsls       r2, r2, #0x2
+0000bf2a         add        r1, r2
+0000bf2c         ldr        r1, [r1]
+0000bf2e         blx        imp___symbolstub1__printf
+0000bf32         str        r0, [sp, #0x30 + var_30]
+0000bf34         ldr        r0, [sp, #0x30 + var_2C]
+0000bf36         adds       r0, #0x1
+0000bf38         str        r0, [sp, #0x30 + var_2C]
+0000bf3a         b          0xbf0a
+```
+
+The same instructions are used to iterate over each address in the array, and grab its contents: 
+
+```
+0000bf24         add        r1, sp, #0x18
+0000bf26         ldr        r2, [sp, #0x30 + var_2C]
+0000bf28         lsls       r2, r2, #0x2
+0000bf2a         add        r1, r2
+0000bf2c         ldr        r1, [r1]
+```
