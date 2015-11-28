@@ -73,3 +73,9 @@ clang -framework Foundation -arch armv7 -isysroot /Applications/Xcode.app/Conten
 0000bf06         str        r1, [sp, #0x30 + var_C]
 0000bf08         str        r0, [sp, #0x30 + var_2C]
 ```
+Because ARM cannot store a 32-bit value in a give register, the instructions ```movw``` and ```movt``` are used to store the address to each of the strings into a target register.
+
+```
+0000beb0         movw       r1, #0x113                                          ; "dolf", :lower16:(0xbfcf - 0xbebc)
+0000beb4         movt       r1, #0x0                                            ; "dolf", :upper16:(0xbfcf - 0xbebc)
+```
