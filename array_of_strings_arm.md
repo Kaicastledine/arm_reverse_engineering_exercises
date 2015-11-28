@@ -98,4 +98,4 @@ Because ARM is a "load / store" architecture, operations are used to load values
 0000bf08         str        r0, [sp, #0x30 + var_2C]
 ```
 
-Here each of the addresses are stored at a given location on the stack. A good indicator that an array structure is being used, is how each name is stored at an incremeting index on the stack.  This correlates to something like ``array[0] + var```
+Here each of the addresses are stored at a given location on the stack. A good indicator that an array structure is being used, is how each name is stored at an incremeting index on the stack.  This correlates to something like ```array[0] + var```
