@@ -2,6 +2,11 @@
 We are just going to focus on these statements: 
 
 ```
+struct node {
+    int x;
+    struct node *next;
+};
+
 root = malloc(sizeof(struct node));
 root->x = 5;
 root->next = malloc(sizeof(struct node));
