@@ -1,6 +1,6 @@
 # ARM Reverse Engineering Exercises
 
-These exercises are meant to help identify and understand different patterns in ARM assembly.  All of the examples have been written in Xcode and compiled with clang.
+These exercises are meant to help identify and understand different patterns in ARM assembly.  All of the examples have been written in Xcode and compiled with clang.  As I create more exercises, I will use different compilers in order to demonstrate different nuances.
 
 ## ARM 
 
