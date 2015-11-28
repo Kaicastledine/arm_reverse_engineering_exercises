@@ -133,7 +133,7 @@ Add ```r2``` and ```r1``` together and store the result in ```r1```:
 
 ```0000bf12         add        r1, r2```
 
-Load value from the address in ```r1```` into ```r1``` i.e. ```(var = array[1])``` : 
+Load value from the address in ```r1``` into ```r1``` i.e. ```(var = array[1])``` : 
 
 ```0000bf14         ldr        r1, [r1]```
 
