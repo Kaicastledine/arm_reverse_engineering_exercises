@@ -145,4 +145,19 @@ Then branch if equal:
 
 ```0000bf18         beq        0xbf3c```
 
+Let's see how Hopper translates this block: 
 
+```
+var_2C = 0x0;
+    while (*((var_2C << 0x2) + sp + 0x18) != 0x0) {
+            printf("[*] %s\n", *((var_2C << 0x2) + sp + 0x18));
+            var_2C = var_2C + 0x1;
+    }
+
+```
+
+```
+var_2C = 0  - (int i = 0;)
+i++
+(i + sp + 0x18) = array[i]
+```
