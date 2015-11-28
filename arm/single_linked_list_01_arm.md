@@ -67,3 +67,10 @@ Next the address to the first heap structure is loaded into ```r0```, and then t
 0000befe         ldr        r0, [r0, #0x4]
 0000bf00         str        r2, [r0]
 ```
+Then we set the first_pointer->second_pointer->next equal to NULL:
+
+```
+0000bf02         ldr        r0, [sp, #0xc + var_4]
+0000bf04         ldr        r0, [r0, #0x4]
+0000bf06         str        r1, [r0, #0x4]
+```
