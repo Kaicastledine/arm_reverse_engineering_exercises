@@ -1,11 +1,3 @@
-//
-//  main.m
-//  ObjcDevProj
-//
-//  Created by rotlogix on 11/28/15.
-//  Copyright © 2015 rotlogix. All rights reserved.
-//
-
 #import <Foundation/Foundation.h>
 
 void myFunction() {
