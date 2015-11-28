@@ -26,3 +26,10 @@ clang -framework Foundation -arch armv7 -isysroot /Applications/Xcode.app/Conten
 0000bee0         blx        imp___symbolstub1__malloc
 ```
 First we make some room on the stack for our local variables, and then make call to ```malloc()``` with the value ```0x08``` .  This translates into ```malloc(sizeof(struct node));```
+
+The pointer to the heap allocation is a return value which is placed in ```r0``` based on the ABI.  We are going to take the pointer and store it on the stack, then load that address back into ```r0``` i.e. "load / store" :
+
+```
+0000bee8         str        r0, [sp, #0xc + var_4]
+0000beea         ldr        r0, [sp, #0xc + var_4]
+```
