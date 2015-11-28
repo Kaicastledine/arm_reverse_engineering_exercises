@@ -79,3 +79,23 @@ Because ARM cannot store a 32-bit value in a give register, the instructions ```
 0000beb0         movw       r1, #0x113                                          ; "dolf", :lower16:(0xbfcf - 0xbebc)
 0000beb4         movt       r1, #0x0                                            ; "dolf", :upper16:(0xbfcf - 0xbebc)
 ```
+
+Because ARM is a "load / store" architecture, operations are used to load values into registers, perform the given operation, then push the result back to the stack.
+
+```
+0000beee         str.w      sb, [sp, #0x30 + var_1C]
+0000bef2         str        r3, [sp, #0x30 + var_20]
+0000bef4         str        r2, [sp, #0x30 + var_24]
+0000bef6         str        r1, [sp, #0x30 + var_28]
+0000bef8         ldr        r1, [sp, #0x30 + var_1C]
+0000befa         str        r1, [sp, #0x30 + var_18]
+0000befc         ldr        r1, [sp, #0x30 + var_20]
+0000befe         str        r1, [sp, #0x30 + var_14]
+0000bf00         ldr        r1, [sp, #0x30 + var_24]
+0000bf02         str        r1, [sp, #0x30 + var_10]
+0000bf04         ldr        r1, [sp, #0x30 + var_28]
+0000bf06         str        r1, [sp, #0x30 + var_C]
+0000bf08         str        r0, [sp, #0x30 + var_2C]
+```
+
+Here each of the addresses are stored at a given location on the stack. A good indicator that an array structure is being used, is how each name is stored at an incremeting index on the stack.  This correlates to something like ``array[0] + var```
