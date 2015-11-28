@@ -7,6 +7,10 @@ struct node {
     struct node *next;
 };
 
+
+struct node *root; 
+struct node *conductor;
+
 root = malloc(sizeof(struct node));
 root->x = 5;
 root->next = malloc(sizeof(struct node));
@@ -73,4 +77,11 @@ Then we set the first_pointer->second_pointer->next equal to NULL:
 0000bf02         ldr        r0, [sp, #0xc + var_4]
 0000bf04         ldr        r0, [r0, #0x4]
 0000bf06         str        r1, [r0, #0x4]
+```
+Now our conducter pointer is still located on the stack ```[sp, #0xc + var_8]``` , so we are going to point the conductor to the root node:
+
+```
+0000bf08         ldr        r0, [sp, #0xc + var_4]
+0000bf0a         str        r0, [sp, #0xc + var_8]
+0000bf0c         ldr        r0, [sp, #0xc + var_8]
 ```
