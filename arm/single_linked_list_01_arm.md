@@ -85,3 +85,15 @@ Now our conducter pointer is still located on the stack ```[sp, #0xc + var_8]```
 0000bf0a         str        r0, [sp, #0xc + var_8]
 0000bf0c         ldr        r0, [sp, #0xc + var_8]
 ```
+
+Here is Hopper's output: 
+
+```
+sp = sp - 0xc;
+var_4 = malloc(0x8);
+*var_4 = 0x5;
+*(var_4 + 0x4) = malloc(0x8);
+**(var_4 + 0x4) = 0x6;
+*(*(var_4 + 0x4) + 0x4) = 0x0;
+var_8 = var_4;
+```
