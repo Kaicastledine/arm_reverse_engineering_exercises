@@ -33,3 +33,22 @@ The pointer to the heap allocation is a return value which is placed in ```r0```
 0000bee8         str        r0, [sp, #0xc + var_4]
 0000beea         ldr        r0, [sp, #0xc + var_4]
 ```
+
+We then store 5 at the heap location pointed to by ```[sp, 0xc + var_4]``` : 
+
+```
+0000beec         str        r2, [r0]
+```
+
+Here is what we can gather so far: 
+
+- We have a heap allocation with a pointer located at ```[sp, #0xc + var_4]```
+- We stored at an integer (5) within the heap allocation
+
+
+Another call to ```malloc()``` is made: 
+
+```
+0000beee         mov        r0, r1
+0000bef0         blx        imp___symbolstub1__malloc
+```
