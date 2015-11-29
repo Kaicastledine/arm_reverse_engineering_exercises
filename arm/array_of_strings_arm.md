@@ -73,7 +73,7 @@ clang -framework Foundation -arch armv7 -isysroot /Applications/Xcode.app/Conten
 0000bf06         str        r1, [sp, #0x30 + var_C]
 0000bf08         str        r0, [sp, #0x30 + var_2C]
 ```
-Because ARM cannot store a 32-bit immediate in a given register, the instructions ```movw``` and ```movt``` are used to store the addresses of each string by splitting it into 16 bytes.
+Because ARM cannot store a 32-bit value in a given register, the instructions ```movw``` and ```movt``` are used to store the addresses of each string by splitting it into 16 bytes.
 
 ```
 0000beb0         movw       r1, #0x113                                          ; "dolf", :lower16:(0xbfcf - 0xbebc)
@@ -127,7 +127,7 @@ Load the first element of our array from the stack into ```r2``` :
 
 Perform a ```lsl``` on that address in ```r2``` and store the result in ```r2``` : 
 
-0000bf10         lsls       r2, r2, #0x2
+```0000bf10         lsls       r2, r2, #0x2```
 
 Add ```r2``` and ```r1``` together and store the result in ```r1```:
 
