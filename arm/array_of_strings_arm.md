@@ -117,7 +117,7 @@ Move 0 into ```r0``` and update the status register:
 
 ```bf0a             movs       r0, #0x0```
 
-Add 0x18 to whatever is at the top of the stack and store in ```r1``` :
+Add 0x18 to whatever to the stack pointer (address) and store in ```r1``` :
 
 ```0000bf0c         add        r1, sp, #0x18```
 
