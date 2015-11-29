@@ -121,7 +121,7 @@ Add 0x18 to the stack pointer (address) and store that address result in ```r1``
 
 ```0000bf0c         add        r1, sp, #0x18```
 
-This should be the address of our first elmement.
+This should be the address of our first element.
 
 Load 0 into ```r2``` :
 
