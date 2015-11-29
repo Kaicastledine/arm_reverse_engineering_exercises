@@ -57,12 +57,12 @@ Another call to ```malloc()``` is made:
 0000bef0         blx        imp___symbolstub1__malloc
 ```
 
-We load our first pointer ```[sp, #0xc + var_4]``` (address) into ```r3``` . Then the second pointer returned from ```malloc()``` which is held in ```r0``` is stored in the first heap structure at the following index ```r0, [r3, #0x4]```. This breaks down into the following source which connects are linked list.
+We load our first pointer ```[sp, #0xc + var_4]``` (address) into ```r3``` . Then the second pointer returned from ```malloc()``` which is held in ```r0``` is stored in the first heap structure at the following index ```r0, [r3, #0x4]```. This breaks down into the following source which connects the linked list.
 
 ```
 root->next = malloc(sizeof(struct node));
 ```
-Next the address to the first heap structure is loaded into ```r0```, and then the address pointing to the second heap structure is again loaded into ```r0```.  Then we store an integer (6) in the second heap structure. 
+Next the pointer into the first first heap structure is loaded into ```r0```, and then the address pointing to the second heap structure is again loaded into ```r0```.  Then we store an integer (6) in the second heap structure - ``` root->next->x = 6; ```
 
 ```
 0000bef8         ldr        r3, [sp, #0xc + var_4]
