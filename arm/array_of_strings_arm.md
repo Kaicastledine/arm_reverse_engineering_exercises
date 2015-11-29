@@ -121,15 +121,17 @@ Add 0x18 to the stack pointer (address) and store that address result in ```r1``
 
 ```0000bf0c         add        r1, sp, #0x18```
 
-Load the first element of our array from the stack into ```r2``` :
+This should be the address of our first elmement.
+
+Load 0 into ```r2``` :
 
 ```0000bf0e         ldr        r2, [sp, #0x30 + var_2C]```
 
-Perform a ```lsl``` on that address in ```r2``` and store the result in ```r2``` : 
+Perform a ```lsl``` on the value in ```r2``` and store the result in ```r2``` : 
 
 ```0000bf10         lsls       r2, r2, #0x2```
 
-Add ```r2``` and ```r1``` together and store the result in ```r1```:
+Add ```r2``` and ```r1``` together and store the result in ```r1``` - This increments our array:
 
 ```0000bf12         add        r1, r2```
 
