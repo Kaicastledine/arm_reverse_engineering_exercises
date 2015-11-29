@@ -73,14 +73,14 @@ clang -framework Foundation -arch armv7 -isysroot /Applications/Xcode.app/Conten
 0000bf06         str        r1, [sp, #0x30 + var_C]
 0000bf08         str        r0, [sp, #0x30 + var_2C]
 ```
-Because ARM cannot store a 32-bit value in a give register, the instructions ```movw``` and ```movt``` are used to store the address to each of the strings into a target register.
+Because ARM cannot store a 32-bit immediate in a given register, the instructions ```movw``` and ```movt``` are used to store the addresses of each string by splitting it into 16 bytes.
 
 ```
 0000beb0         movw       r1, #0x113                                          ; "dolf", :lower16:(0xbfcf - 0xbebc)
 0000beb4         movt       r1, #0x0                                            ; "dolf", :upper16:(0xbfcf - 0xbebc)
 ```
 
-Because ARM is a "load / store" architecture, operations are used to load values into registers, perform the given operation, then push the result back to the stack.
+Because ARM is a load store architecture, operations are used to load values into registers, perform the given operation, then push the result back to the stack.
 
 ```
 0000beee         str.w      sb, [sp, #0x30 + var_1C]
@@ -98,7 +98,7 @@ Because ARM is a "load / store" architecture, operations are used to load values
 0000bf08         str        r0, [sp, #0x30 + var_2C]
 ```
 
-Here each of the addresses are stored at a given location on the stack. A good indicator that an array structure is being used, is how each name is stored at an incremeting index on the stack.  This correlates to something like ```array[0] + var```
+Here each of the addresses are stored at a given location on the stack. A good indicator that an array structure is being used, is how each name is stored at an incremeting index in stack memory.  This correlates to something like ```array[0] + var```
 
 Now we jump into the for loop where we iterate through each index of the array and print out what is located there.
 
@@ -133,7 +133,7 @@ Add ```r2``` and ```r1``` together and store the result in ```r1```:
 
 ```0000bf12         add        r1, r2```
 
-Load value from the address in ```r1``` into ```r1``` i.e. ```(var = array[1])``` : 
+Load the value from the address in ```r1``` into ```r1``` i.e. ```(var = array[1])``` : 
 
 ```0000bf14         ldr        r1, [r1]```
 
@@ -156,11 +156,13 @@ var_2C = 0x0;
 
 ```
 
+This is the correlation to the for loop iteration:
+
 ```
-var_2C = 0  - (int i = 0;)
-i++
-(i + sp + 0x18) = array[i]
+for(int i = 0; myArray[i] != '\0'; i++)
 ```
+
+The ```lsls``` instruction is ARM's way of incrementing the iterator.
 
 The final block is taking each name from its given index into the array and printing it.
 
