@@ -131,11 +131,13 @@ Perform a ```lsl``` on the value in ```r2``` and store the result in ```r2``` :
 
 ```0000bf10         lsls       r2, r2, #0x2```
 
+This is will update the iterator in the for loop.
+
 Add ```r2``` and ```r1``` together and store the result in ```r1``` - This increments our array:
 
 ```0000bf12         add        r1, r2```
 
-Load the value from the address in ```r1``` into ```r1``` i.e. ```(var = array[1])``` : 
+Load the value from the address in ```r1``` into ```r1``` - which is our value at the current ```array[index]``` :
 
 ```0000bf14         ldr        r1, [r1]```
 
@@ -163,8 +165,6 @@ This is the correlation to the for loop iteration:
 ```
 for(int i = 0; myArray[i] != '\0'; i++)
 ```
-
-The ```lsls``` instruction is ARM's way of incrementing the iterator.
 
 The final block is taking each name from its given index into the array and printing it.
 
