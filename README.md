@@ -8,3 +8,4 @@ If you need additional help with any of the content, checkout my ARM cheatsheet 
 
 - [Array of Strings](https://github.com/rotlogix/Exercises/blob/master/arm/array_of_strings_arm.md) 
 - [Single Linked List](https://github.com/rotlogix/Exercises/blob/master/arm/single_linked_list_01_arm.md) 
+- [Exploit Exercises - Heap0](https://github.com/rotlogix/Exercises/blob/master/arm/exploit_exercises_heap0_arm.md)
