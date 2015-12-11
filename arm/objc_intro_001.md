@@ -45,7 +45,16 @@ Alright let's jump into some assembly:
 0000bfa0         blx        r2
 ```
 
-We will be focusing on - ```MyUser *myUser = [[MyUser alloc] init];
+We will be focusing on - ```MyUser *myUser = [[MyUser alloc] init];```
+
+```
+0000bf5a         movw       r3, #0x11e                                         ; @selector(alloc), :lower16:(0xc084 - 0xbf66)
+0000bf5e         movt       r3, #0x0                                           ; @selector(alloc), :upper16:(0xc084 - 0xbf66)
+0000bf62         add        r3, pc                                             ; @selector(alloc)
+```
+
+We cannot store a 32-bit immmediate inside a register in ARM, so we split that value across two instructions - ```movw``` and ```movt``` - which move the upper and lower 16 bits into the target register.
+
 
 
 
