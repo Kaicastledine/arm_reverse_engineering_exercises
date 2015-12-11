@@ -196,7 +196,7 @@ We first move the ```selector``` into ```r2```.  After our final call to ```objc
 
 We move the ```selector``` - ```cnorris``` into ```r2```, store the value on the stack, load it back into ```r0```, tear down the stack frame and branch exchange to the link register.
 
-Here is the decompile output from Hopper for this subroutine:
+Here is the decompiled output from Hopper for this subroutine:
 
 ```
 void * -[MyUser printUserName](void * self, void * _cmd) {
