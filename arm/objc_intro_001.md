@@ -55,6 +55,22 @@ We will be focusing on - ```MyUser *myUser = [[MyUser alloc] init];```
 
 We cannot store a 32-bit immmediate inside a register in ARM, so we split that value across two instructions - ```movw``` and ```movt``` - which move the upper and lower 16 bits into the target register.
 
+```
+0000bf64         movw       sb, #0x120                                          ; :lower16:(objc_cls_ref_MyUser - 0xbf70)
+0000bf68         movt       sb, #0x0                                            ; :upper16:(objc_cls_ref_MyUser - 0xbf70)
+0000bf6c         add        sb, pc                                              ; objc_cls_ref_MyUser
+```
 
+We move the class reference in the same exact way for ```MyUser``` into ```sb```.
 
+```
+000bf72          str.w      ip, [sp, #0x1c + var_4]
+0000bf76         str        r0, [sp, #0x1c + var_8]
+0000bf78         str        r1, [sp, #0x1c + var_C]
+0000bf7a         ldr.w      r0, [sb]                                            ; objc_cls_ref_MyUser,_OBJC_CLASS_$_MyUser
+0000bf7e         ldr        r1, [r3]                                            ; "alloc",@selector(alloc)
+0000bf80         blx        r2                                                  ; _objc_msgSend
+```
+
+We first store what's inside ```ip```, ```r0```, ```r1``` onto the stack, then we load the class reference to ```MyUser``` into ```r0```, and ```selector``` - ```alloc``` into ```r1```.  Finally we branch to ```r2```, which contains the symbol pointer to ```objc_msgSend()```.
 
