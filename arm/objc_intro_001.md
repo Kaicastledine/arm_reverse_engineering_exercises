@@ -18,11 +18,7 @@ The ```selector``` is simply the method that is **selected** to be called on the
 Alright let's jump into some assembly:
 
 ```
-0000bf4e         movw       r2, #0xa6                                           ; :lower16:(imp___nl_symbol_ptr__objc_msgSend - 0xbf5a)
-0000bf52         movt       r2, #0x0                                            ; :upper16:(imp___nl_symbol_ptr__objc_msgSend - 0xbf5a)
-0000bf56         add        r2, pc                                              ; imp___nl_symbol_ptr__objc_msgSend
-0000bf58         ldr        r2, [r2]                                            ; imp___nl_symbol_ptr__objc_msgSend,_objc_msgSend
-0000bf5a         movw       r3, #0x11e                                          ; @selector(alloc), :lower16:(0xc084 - 0xbf66)
+         movw       r3, #0x11e                                          ; @selector(alloc), :lower16:(0xc084 - 0xbf66)
 0000bf5e         movt       r3, #0x0                                            ; @selector(alloc), :upper16:(0xc084 - 0xbf66)
 0000bf62         add        r3, pc                                              ; @selector(alloc)
 0000bf64         movw       sb, #0x120                                          ; :lower16:(objc_cls_ref_MyUser - 0xbf70)
@@ -35,6 +31,21 @@ Alright let's jump into some assembly:
 0000bf7a         ldr.w      r0, [sb]                                            ; objc_cls_ref_MyUser,_OBJC_CLASS_$_MyUser
 0000bf7e         ldr        r1, [r3]                                            ; "alloc",@selector(alloc)
 0000bf80         blx        r2                                                  ; _objc_msgSend
+0000bf82         movw       r1, #0x72                                           ; :lower16:(imp___nl_symbol_ptr__objc_msgSend - 0xbf8e)
+0000bf86         movt       r1, #0x0                                            ; :upper16:(imp___nl_symbol_ptr__objc_msgSend - 0xbf8e)
+0000bf8a         add        r1, pc                                              ; imp___nl_symbol_ptr__objc_msgSend
+0000bf8c         ldr        r1, [r1]                                            ; imp___nl_symbol_ptr__objc_msgSend,_objc_msgSend
+0000bf8e         movw       r2, #0xee                                           ; @selector(init), :lower16:(0xc088 - 0xbf9a)
+0000bf92         movt       r2, #0x0                                            ; @selector(init), :upper16:(0xc088 - 0xbf9a)
+0000bf96         add        r2, pc                                              ; @selector(init)
+0000bf98         ldr        r2, [r2]                                            ; "init",@selector(init)
+0000bf9a         str        r1, [sp, #0x1c + var_14]
+0000bf9c         mov        r1, r2
+0000bf9e         ldr        r2, [sp, #0x1c + var_14]
+0000bfa0         blx        r2
 ```
+
+We will be focusing on - ```MyUser *myUser = [[MyUser alloc] init];
+
 
 
