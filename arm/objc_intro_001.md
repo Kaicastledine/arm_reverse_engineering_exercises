@@ -10,5 +10,9 @@ Here is the declaration of objc_msgSend():
 
 So let's say we invoke a method - ```[SomeObject someMethod]```:
 
-- The ```id``` parameter in the ```objc_msgSend()``` is referring to ```SomeObject```
-- The ```SEL``` parameter is the ```selector``` or simply just the string ```someMethod```
+- The ```id``` parameter in ```objc_msgSend()``` is referring to ```SomeObject```
+- The ```SEL``` parameter is the ```selector``` - ```someMethod```
+
+The ```selector``` is simply the method that is **selected** to be called on the corresponding class
+
+
