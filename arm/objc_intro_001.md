@@ -161,3 +161,47 @@ We move the class reference in the same exact way for ```MyUser``` into ```sb```
 
 We first store what's inside ```ip```, ```r0```, ```r1``` onto the stack, then we load the class reference to ```MyUser``` into ```r0```, and ```selector``` - ```alloc``` into ```r1```.  Finally we branch to ```r2```, which contains the symbol pointer to ```objc_msgSend()```.
 
+As you walk through the assembly, you will see the call made to ```init``` in almost the exact same way.
+
+```
+0000bfae         movw       r2, #0xd2                               ; @selector(printUserName), :lower16:(0xc08c - 0xbfba)
+0000bfb2         movt       r2, #0x0                                ; @selector(printUserName), :upper16:(0xc08c - 0xbfba)
+0000bfb6         add        r2, pc                                  ; @selector(printUserName)
+0000bfb8         str        r0, [sp, #0x1c + var_10]
+0000bfba         ldr        r0, [sp, #0x1c + var_10]
+0000bfbc         ldr        r2, [r2]                                ; "printUserName",@selector(printUserName)
+0000bfbe         str        r1, [sp, #0x1c + var_18]
+0000bfc0         mov        r1, r2
+0000bfc2         ldr        r2, [sp, #0x1c + var_18]
+0000bfc4         blx        r2
+```
+
+The call to the method ```printUserName``` is made in the exact same way as our calls to ```alloc``` and ```init```.
+
+We first move the ```selector``` into ```r2```.  After our final call to ```objc_msgSend()``` the object reference pointer was returned in ```r0```.
+
+```
+             -[MyUser printUserName]:
+0000bf30         sub        sp, #0xc                                            ; Objective C Implementation defined at 0xc050 (instance), XREF=0x40ac
+0000bf32         movw       r2, #0xc6                                           ; @"cnorris", :lower16:(cfstring_cnorris - 0xbf3e)
+0000bf36         movt       r2, #0x0                                            ; @"cnorris", :upper16:(cfstring_cnorris - 0xbf3e)
+0000bf3a         add        r2, pc                                              ; @"cnorris"
+0000bf3c         str        r0, [sp, var_4]
+0000bf3e         str        r1, [sp, var_8]
+0000bf40         str        r2, [sp, var_C]
+0000bf42         ldr        r0, [sp, var_C]
+0000bf44         add        sp, #0xc
+0000bf46         bx         lr
+```
+
+We move the ```selector``` - ```cnorris``` into ```r2```, store the value on the stack, load it back into ```r0```, tear down the stack frame and branch exchange to the link register.
+
+Here is the decompile output from Hopper for this subroutine:
+
+```
+void * -[MyUser printUserName](void * self, void * _cmd) {
+    r0 = @"cnorris";
+    return r0;
+}
+```
+
