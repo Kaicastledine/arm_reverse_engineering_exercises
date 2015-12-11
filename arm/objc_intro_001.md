@@ -1,3 +1,35 @@
+## Source Code
+```
+#import <Foundation/Foundation.h>
+
+@interface MyUser : NSObject
+
+-(NSString*)printUserName;
+
+@end
+
+@implementation MyUser
+
+-(NSString*)printUserName {
+    
+    NSString *userName = @"cnorris";
+    
+    return userName;
+}
+@end
+
+int main(int argc, const char * argv[]) {
+    
+    MyUser *myUser = [[MyUser alloc] init];
+    [myUser printUserName];
+    
+    return 0;
+}
+
+```
+
+## Walkthrough
+
 The majority of reversing Objective-C code is fully understanding how the compiler converts method calls - ```[SomeObject someMethod]``` - into an ```objc_msgSend()``` call.
 
 [https://developer.apple.com/library/mac/documentation/Cocoa/Reference/ObjCRuntimeRef/](https://developer.apple.com/library/mac/documentation/Cocoa/Reference/ObjCRuntimeRef/)
