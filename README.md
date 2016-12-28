@@ -1,5 +1,5 @@
 # ARM Reverse Engineering Exercises
-[![Crates.io](https://img.shields.io/crates/l/rustc-serialize.svg)]()
+[![Hex.pm](https://img.shields.io/hexpm/l/plug.svg)]()
 ## Overview
 These exercises are meant to help identify and understand different patterns in ARM assembly.  All of the examples have been written in Xcode and compiled with clang.  As I create more exercises, I will use different compilers in order to demonstrate different nuances.  The disassembly output will mostly likely be from Hopper, unless stated otherwise.
 
