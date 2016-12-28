@@ -1,5 +1,5 @@
 ## Source Code
-```
+```c
 #import <Foundation/Foundation.h>
 
 void myFunction() {
@@ -30,12 +30,12 @@ int main(int argc, const char * argv[]) {
 }
 ```
 ## Compiler
-```
+```bash
 clang -framework Foundation -arch armv7 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/ main.m -o main -miphoneos-version-min=7.0
 ```
 
 ## Walkthrough
-```
+```nasm
              _myFunction:
 0000bea8         push       {r7, lr}                                            ; XREF=0x40ac, _main+32
 0000beaa         mov        r7, sp
@@ -75,14 +75,14 @@ clang -framework Foundation -arch armv7 -isysroot /Applications/Xcode.app/Conten
 ```
 Because ARM cannot store a 32-bit immediate in a given register, the instructions ```movw``` and ```movt``` are used to store the addresses of each string by splitting it into 16 bytes.
 
-```
+```nasm
 0000beb0         movw       r1, #0x113                                          ; "dolf", :lower16:(0xbfcf - 0xbebc)
 0000beb4         movt       r1, #0x0                                            ; "dolf", :upper16:(0xbfcf - 0xbebc)
 ```
 
 Because ARM is a load store architecture, operations are used to load values into registers, perform the given operation, then push the result back to the stack.
 
-```
+```nasm
 0000beee         str.w      sb, [sp, #0x30 + var_1C]
 0000bef2         str        r3, [sp, #0x30 + var_20]
 0000bef4         str        r2, [sp, #0x30 + var_24]
@@ -102,7 +102,7 @@ Here each of the addresses are stored at a given location on the stack. A good i
 
 Now we jump into the for loop where we iterate through each index of the array and print out what is located there.
 
-```
+```nasm
 bf0a             movs       r0, #0x0                                            
 0000bf0c         add        r1, sp, #0x18
 0000bf0e         ldr        r2, [sp, #0x30 + var_2C]
@@ -115,7 +115,9 @@ bf0a             movs       r0, #0x0
 
 Move 0 into ```r0``` and update the status register:
 
-```bf0a             movs       r0, #0x0```
+```nasm
+bf0a             movs       r0, #0x0
+```
 
 Add 0x18 to the stack pointer (address) and store that address result in ```r1``` :
 
@@ -125,33 +127,45 @@ This should be the address of our first element.
 
 Load 0 into ```r2``` :
 
-```0000bf0e         ldr        r2, [sp, #0x30 + var_2C]```
+```nasm
+0000bf0e         ldr        r2, [sp, #0x30 + var_2C]
+```
 
 Perform a ```lsl``` on the value in ```r2``` and store the result in ```r2``` : 
 
-```0000bf10         lsls       r2, r2, #0x2```
+```nasm
+0000bf10         lsls       r2, r2, #0x2
+```
 
 This is will update the iterator in the for loop.
 
 Add ```r2``` and ```r1``` together and store the result in ```r1``` - This increments our array:
 
-```0000bf12         add        r1, r2```
+```nasm
+0000bf12         add        r1, r2
+```
 
 Load the value from the address in ```r1``` into ```r1``` - which is our value at the current ```array[index]``` :
 
-```0000bf14         ldr        r1, [r1]```
+```nasm
+0000bf14         ldr        r1, [r1]
+```
 
 Compare that value against 0:
 
-```0000bf16         cmp        r1, r0```
+```nasm
+0000bf16         cmp        r1, r0
+```
 
 Then branch if equal: 
 
-```0000bf18         beq        0xbf3c```
+```nasm
+0000bf18         beq        0xbf3c
+```
 
 Let's see how Hopper translates this block: 
 
-```
+```c
 var_2C = 0x0;
     while (*((var_2C << 0x2) + sp + 0x18) != 0x0) {
             printf("[*] %s\n", *((var_2C << 0x2) + sp + 0x18));
@@ -162,13 +176,13 @@ var_2C = 0x0;
 
 This is the correlation to the for loop iteration:
 
-```
+```c
 for(int i = 0; myArray[i] != '\0'; i++)
 ```
 
 The final block is taking each name from its given index into the array and printing it.
 
-```
+```nasm
 0bf1a            movw       r0, #0xae                                           ; "[*] %s\\n", :lower16:(0xbfd4 - 0xbf26)
 0000bf1e         movt       r0, #0x0                                            ; "[*] %s\\n", :upper16:(0xbfd4 - 0xbf26)
 0000bf22         add        r0, pc                                              ; "[*] %s\\n", argument "format" for method 
@@ -187,7 +201,7 @@ The final block is taking each name from its given index into the array and prin
 
 The same instructions are used to iterate over each address in the array, and grab its contents: 
 
-```
+```nasm
 0000bf24         add        r1, sp, #0x18
 0000bf26         ldr        r2, [sp, #0x30 + var_2C]
 0000bf28         lsls       r2, r2, #0x2
